@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<title> Message board </title>
+<h1> Message board </h1>
+{% for message in messages %}
+{{message.content}}
+<hr>
+{% endfor %}
+<a href="/new"> Lähetä uusi viesti</a>
