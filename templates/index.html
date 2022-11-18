@@ -2,7 +2,7 @@
 <title> Message board </title>
 <h1> Message board </h1>
 {% for thread in threads %}
-{{thread[0]}} <i> by {{thread[1]}}</i>
+<a href="/thread/{{thread[2]}}">{{thread[0]}} <i> by {{thread[1]}}</i></a>
 <hr>
 {% endfor %}
 <a href="/new"> Luo uusi ketju</a> <br>

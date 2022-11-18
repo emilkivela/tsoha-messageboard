@@ -1,8 +1,8 @@
 from app import app
 from db import db
-from flask import render_template, redirect, session, request
+from flask import render_template, redirect, session, request, url_for
 from werkzeug.security import check_password_hash, generate_password_hash
-import threads
+import threads, messages
 
 @app.route("/")
 def index():
@@ -67,3 +67,19 @@ def send():
 	db.session.execute(sql, {"name": name, "op" : op})
 	db.session.commit()
 	return redirect("/")
+
+@app.route("/thread/<int:id>", methods=["POST", "GET"])
+def thread(id):
+	session["thread_id"] = id
+	if request.method =="POST":
+		user_id = session.get("user_id")
+		message = request.form["message"]
+		sql = "INSERT INTO messages (content, thread, author) VALUES (:content, :thread, :author);"
+		db.session.execute(sql, {"content" : message, "thread": id, "author" : user_id })
+		db.session.commit()
+		return redirect(url_for("thread", id=id))
+	else:
+		list = messages.get_list(id)
+		return render_template("thread.html", messages=list)
+
+	

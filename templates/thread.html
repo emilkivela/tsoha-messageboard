@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+
+{% for message in messages %}
+{{message[0]}} <i> by {{message[1]}}</i>
+<hr>
+{% endfor %}
+
+Lähetä uusi viesti
+<form method="POST">
+    <input type="text" name="message">
+    <input type="submit" value="Lähetä viesti">
+</form>
