@@ -2,15 +2,15 @@ from app import app
 from db import db
 from flask import render_template, redirect, session, request
 from werkzeug.security import check_password_hash, generate_password_hash
+import threads
 
 @app.route("/")
 def index():
-	if not session.get("username"):
+	if not session.get("user_id"):
 		return redirect("/login")
-	result = db.session.execute("SELECT content FROM messages")
-	messages = result.fetchall()
+	list = threads.get_list()
 
-	return render_template("index.html", messages=messages)
+	return render_template("index.html", threads=list)
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
@@ -27,7 +27,7 @@ def login():
 		else:
 			hash_value = user.password
 			if check_password_hash(hash_value, password):
-				session["username"] = username
+				session["user_id"] = user.id
 				return redirect("/")
 			else:
 				return render_template("error.html", error="Väärä salasana")
@@ -52,7 +52,7 @@ def signin():
 
 @app.route("/logout")
 def logout():
-	del session["username"]
+	del session["user_id"]
 	return redirect("/")
 
 @app.route("/new")
@@ -61,8 +61,9 @@ def new():
 
 @app.route("/send", methods=["POST"])
 def send():
-	content = request.form["content"]
-	sql = "INSERT INTO messages (content) values (:content)"
-	db.session.execute(sql, {"content": content})
+	name = request.form["name"]
+	op = session.get("user_id")
+	sql = "INSERT INTO threads (name, op) values (:name, :op)"
+	db.session.execute(sql, {"name": name, "op" : op})
 	db.session.commit()
 	return redirect("/")

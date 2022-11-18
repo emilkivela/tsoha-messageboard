@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <title> Message board </title>
 <h1> Message board </h1>
-{% for message in messages %}
-{{message.content}}
+{% for thread in threads %}
+{{thread[0]}} <i> by {{thread[1]}}</i>
 <hr>
 {% endfor %}
-<a href="/new"> Lähetä uusi viesti</a> <br>
+<a href="/new"> Luo uusi ketju</a> <br>
 <a href="/login"> Kirjaudu sisään</a> <br>
 <a href="/logout"> Kirjaudu ulos </a>
 <br>
