@@ -49,7 +49,11 @@ def signin():
 		db.session.execute(sql, {"username":username, "password":hash_value, "admin":"FALSE"})
 		db.session.commit()
 		return redirect("/login")
-		
+
+@app.route("/logout")
+def logout():
+	del session["username"]
+	return redirect("/")
 
 @app.route("/new")
 def new():
