@@ -70,16 +70,16 @@ def send():
 
 @app.route("/thread/<int:id>", methods=["POST", "GET"])
 def thread(id):
-	#session["thread_id"] = id
 	if request.method =="POST":
 		user_id = session.get("user_id")
 		message = request.form["message"]
-		sql = "INSERT INTO messages (content, thread, author, created_at) VALUES (:content, :thread, :author, NOW());"
+		sql = "INSERT INTO messages (content, thread, author, sent_at) VALUES (:content, :thread, :author, NOW());"
 		db.session.execute(sql, {"content" : message, "thread": id, "author" : user_id })
 		db.session.commit()
 		return redirect(url_for("thread", id=id))
 	else:
+		name = threads.get_name(id)
 		list = messages.get_list(id)
-		return render_template("thread.html", messages=list)
+		return render_template("thread.html", messages=list, name=name)
 
 	
