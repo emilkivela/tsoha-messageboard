@@ -2,7 +2,7 @@ from app import app
 from db import db
 from flask import render_template, redirect, session, request, url_for
 from werkzeug.security import check_password_hash, generate_password_hash
-import threads, messages
+import threads, messages, users
 
 @app.route("/")
 def index():
@@ -82,4 +82,16 @@ def thread(id):
 		list = messages.get_list(id)
 		return render_template("thread.html", messages=list, name=name)
 
-	
+@app.route("/directs", methods=["POST", "GET"])
+def directs():
+	user_id = session.get("user_id")
+	if request.method == "POST":
+		to = request.form["receiver"]
+		message = request.form["content"]
+		messages.direct_message(user_id, to, message)
+		return redirect(url_for("directs"))
+	else:
+		received = messages.get_directs(user_id)
+		targets = users.get_users(user_id)
+		return render_template("direct.html", users=targets, received=received)
+

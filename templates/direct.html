@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<title> Yksityisviestit </title>
+<h1> Yksityisviestit: </h1>
+{% for message in received %}
+    {{message[0]}} <i> from {{message[1]}} at {{message[2]}}</i><br>
+{% endfor %}
+<br>
+Lähetä yksityisviesti:
+<form action="/directs" method="POST">
+    Vastaanottaja:
+    <select name="receiver">
+    {% for user in users%}
+        <option value="{{user[1]}}" selected> {{user[0]}}</option>
+    {% endfor %}
+    </select><br>
+    <textarea name="content" cols="40" rows="5"></textarea>
+
+    <input type="submit" name="Send">
+</form>
