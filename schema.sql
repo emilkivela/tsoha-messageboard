@@ -19,3 +19,11 @@ CREATE TABLE messages(
     author INTEGER REFERENCES users,
     sent_at TIMESTAMP
 );
+
+CREATE TABLE directs(
+    id SERIAL PRIMARY KEY,
+    content TEXT,
+    author INTEGER REFERENCES users,
+    receiver INTEGER REFERENCES users,
+    sent_at TIMESTAMP
+);
