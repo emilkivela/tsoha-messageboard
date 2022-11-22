@@ -1,7 +1,7 @@
 from db import db
 
 def get_list():
-    sql = ("SELECT T.name, U.username, T.id FROM threads T, users U WHERE T.op = U.id")
+    sql = ("SELECT T.name, U.username, T.id, (SELECT COUNT(content) FROM messages WHERE messages.thread=T.id) FROM threads T, users U WHERE T.op = U.id")
     result = db.session.execute(sql)
     return result.fetchall()
 
@@ -13,4 +13,4 @@ def get_name(id):
 def add_thread(name, op):
     sql = "INSERT INTO threads (name, op) values (:name, :op)"
     db.session.execute(sql, {"name": name, "op" : op})
-    db.session.commit()
+    db.session.commit() 
