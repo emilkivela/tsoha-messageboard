@@ -9,3 +9,8 @@ def get_name(id):
     sql = ("SELECT name FROM threads WHERE id=:id")
     result = db.session.execute(sql, {"id" : id})
     return result.fetchone()
+
+def add_thread(name, op):
+    sql = "INSERT INTO threads (name, op) values (:name, :op)"
+    db.session.execute(sql, {"name": name, "op" : op})
+    db.session.commit()

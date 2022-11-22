@@ -15,3 +15,7 @@ def get_directs(user_id):
     result = db.session.execute(sql, {"user_id" : user_id})
     return result.fetchall()
 
+def add_message(message, id, user_id):
+    sql = "INSERT INTO messages (content, thread, author, sent_at) VALUES (:content, :thread, :author, NOW());"
+    db.session.execute(sql, {"content" : message, "thread": id, "author" : user_id })
+    db.session.commit()

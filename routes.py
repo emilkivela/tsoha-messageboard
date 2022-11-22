@@ -1,7 +1,6 @@
 from app import app
 from db import db
 from flask import render_template, redirect, session, request, url_for
-from werkzeug.security import check_password_hash, generate_password_hash
 import threads, messages, users
 
 @app.route("/")
@@ -19,18 +18,11 @@ def login():
 	if request.method == "POST":
 		username = request.form["username"]
 		password = request.form["password"]
-		sql = "SELECT id, password FROM Users WHERE username=:username"
-		result = db.session.execute(sql, {"username":username})
-		user = result.fetchone()
-		if not user:
-			return render_template("error.html", error="Väärä käyttäjänimi")
+		if users.login(username, password):
+			return redirect("/")
 		else:
-			hash_value = user.password
-			if check_password_hash(hash_value, password):
-				session["user_id"] = user.id
-				return redirect("/")
-			else:
-				return render_template("error.html", error="Väärä salasana")
+			return render_template("error.html", error="Väärä käyttäjänimi tai salasana")
+		
 
 @app.route("/signin", methods=["POST", "GET"])
 def signin():
@@ -39,20 +31,14 @@ def signin():
 	if request.method == "POST":
 		username = request.form["username"]
 		password = request.form["password"]
-		sql = "SELECT id, password FROM Users WHERE username=:username"
-		result = db.session.execute(sql, {"username":username})
-		user = result.fetchone()
-		if user:
-			return render_template("error.html", error="Käyttäjänimi on jo käytössä.")
-		hash_value = generate_password_hash(password)
-		sql = "INSERT INTO Users (username, password, admin) VALUES (:username, :password, :admin)"
-		db.session.execute(sql, {"username":username, "password":hash_value, "admin":"FALSE"})
-		db.session.commit()
-		return redirect("/login")
+		if users.signin(username, password):
+			return redirect("/login")
+		else:
+			return render_template("error.html", error="Kirjautuminen ei onnistunut")
 
 @app.route("/logout")
 def logout():
-	del session["user_id"]
+	users.logout()
 	return redirect("/")
 
 @app.route("/new")
@@ -63,9 +49,7 @@ def new():
 def send():
 	name = request.form["name"]
 	op = session.get("user_id")
-	sql = "INSERT INTO threads (name, op) values (:name, :op)"
-	db.session.execute(sql, {"name": name, "op" : op})
-	db.session.commit()
+	threads.add_thread(name, op)
 	return redirect("/")
 
 @app.route("/thread/<int:id>", methods=["POST", "GET"])
@@ -73,9 +57,7 @@ def thread(id):
 	if request.method =="POST":
 		user_id = session.get("user_id")
 		message = request.form["message"]
-		sql = "INSERT INTO messages (content, thread, author, sent_at) VALUES (:content, :thread, :author, NOW());"
-		db.session.execute(sql, {"content" : message, "thread": id, "author" : user_id })
-		db.session.commit()
+		messages.add_message(message, id ,user_id)
 		return redirect(url_for("thread", id=id))
 	else:
 		name = threads.get_name(id)
