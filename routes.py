@@ -1,5 +1,4 @@
 from app import app
-from db import db
 from flask import render_template, redirect, session, request, url_for
 import threads, messages, users
 
@@ -43,6 +42,8 @@ def logout():
 
 @app.route("/new")
 def new():
+	if not session.get("user_id"):
+		return redirect("/login")
 	return render_template("new.html")
 
 @app.route("/send", methods=["POST"])
@@ -54,6 +55,8 @@ def send():
 
 @app.route("/thread/<int:id>", methods=["POST", "GET"])
 def thread(id):
+	if not session.get("user_id"):
+		return redirect("/login")
 	if request.method =="POST":
 		user_id = session.get("user_id")
 		message = request.form["message"]
@@ -66,6 +69,8 @@ def thread(id):
 
 @app.route("/directs", methods=["POST", "GET"])
 def directs():
+	if not session.get("user_id"):
+		return redirect("/login")
 	user_id = session.get("user_id")
 	if request.method == "POST":
 		to = request.form["receiver"]
