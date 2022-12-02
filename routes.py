@@ -1,14 +1,14 @@
 from app import app
 from flask import render_template, redirect, session, request, url_for
-import threads, messages, users
+import threads, messages, users, topics
 
 @app.route("/")
 def index():
 	if not session.get("user_id"):
 		return redirect("/login")
-	list = threads.get_list()
+	list = topics.get_topics()
 
-	return render_template("index.html", threads=list)
+	return render_template("index.html", topics=list)
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
@@ -40,18 +40,6 @@ def logout():
 	users.logout()
 	return redirect("/")
 
-@app.route("/new")
-def new():
-	if not session.get("user_id"):
-		return redirect("/login")
-	return render_template("new.html")
-
-@app.route("/send", methods=["POST"])
-def send():
-	name = request.form["name"]
-	op = session.get("user_id")
-	threads.add_thread(name, op)
-	return redirect("/")
 
 @app.route("/thread/<int:id>", methods=["POST", "GET"])
 def thread(id):
@@ -66,6 +54,19 @@ def thread(id):
 		name = threads.get_name(id)
 		list = messages.get_list(id)
 		return render_template("thread.html", messages=list, name=name)
+
+@app.route("/topic/<int:id>", methods=["POST", "GET"])
+def topic(id):
+	if not session.get("user_id"):
+		return redirect("/login")
+	if request.method == "POST":
+		creator = session.get("user_id")
+		name = request.form["name"]
+		threads.add_thread(name, creator, id)
+		return redirect(url_for("topic", id=id))
+	else:
+		list = threads.get_list(id)
+		return render_template("topic.html", threads=list)
 
 @app.route("/directs", methods=["POST", "GET"])
 def directs():

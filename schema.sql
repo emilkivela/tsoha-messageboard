@@ -5,9 +5,17 @@ CREATE TABLE users(
     admin BOOLEAN
 );
 
+CREATE TABLE topics(
+    id SERIAL PRIMARY KEY,
+    name TEXT,
+    creator INTEGER REFERENCES users,
+    created_at TIMESTAMP
+)
+
 CREATE TABLE threads(
     id SERIAL PRIMARY KEY,
     name TEXT,
+    topic INTEGER REFERENCES topics;
     creator INTEGER REFERENCES users,
     created_at TIMESTAMP
 );
