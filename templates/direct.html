@@ -3,12 +3,12 @@
 <h1> Yksityisviestit: </h1>
 <h2>Vastaanotetut:</h2>
 {% for message in received %}
-    {{message[0]}} <i> from {{message[1]}} at {{message[2]}}</i><br>
+    {{message[0]}} <i> from {{message[1]}} at {{message[2].strftime("%H:%M %d.%m.%Y")}}</i><br>
 {% endfor %}
 <br>
 <h2>Lähetetyt:</h2>
 {% for message in sent %}
-    {{message[0]}} <i> to {{message [1]}} at {{message[2]}} </i><br>
+    {{message[0]}} <i> to {{message [1]}} at {{message[2].strftime("%H:%M %d.%m.%Y")}} </i><br>
 {% endfor %}
 <br>
 Lähetä yksityisviesti:<br>

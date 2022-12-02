@@ -6,7 +6,7 @@ def get_list(id):
     return result.fetchall()
 
 def get_name(id):
-    sql = ("SELECT name FROM threads WHERE id=:id")
+    sql = ("SELECT name, id FROM threads WHERE id=:id")
     result = db.session.execute(sql, {"id" : id})
     return result.fetchone()
 

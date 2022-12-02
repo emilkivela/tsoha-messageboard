@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <title> {{name[0]}} </title>
-<h1> {{name[0]}} </h1>
 
+<h1> {{name[0]}} </h1>
 {% for message in messages %}
 {{message[0]}} <i> by {{message[1]}} at {{message[2].strftime("%H:%M %d.%m.%Y")}}</i>
 <hr>
@@ -11,4 +11,11 @@ Lähetä uusi viesti
 <form method="POST">
     <input type="text" name="message">
     <input type="submit" value="Lähetä viesti">
+</form>
+<br>
+
+<form action="/search{{name[1]}}" method="GET">
+    Etsi viesteistä hakusanalla: <input type="text" name="query">
+    <br>
+    <input type="submit" value="Hae">
 </form>

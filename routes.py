@@ -66,7 +66,8 @@ def topic(id):
 		return redirect(url_for("topic", id=id))
 	else:
 		list = threads.get_list(id)
-		return render_template("topic.html", threads=list)
+		name = topics.get_name(id)
+		return render_template("topic.html", threads=list, name=name)
 
 @app.route("/directs", methods=["POST", "GET"])
 def directs():
@@ -83,3 +84,10 @@ def directs():
 		targets = users.get_users(user_id)
 		return render_template("direct.html", users=targets, received=received, sent=sent)
 
+@app.route("/search<int:id>", methods=["GET"])
+def search(id):
+	if not session.get("user_id"):
+		return redirect("/login")
+	query = request.args["query"]
+	list = messages.find_message(id, query)
+	return render_template("search.html", messages=list)

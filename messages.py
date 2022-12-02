@@ -23,3 +23,8 @@ def add_message(message, id, user_id):
     sql = "INSERT INTO messages (content, thread, author, sent_at) VALUES (:content, :thread, :author, NOW());"
     db.session.execute(sql, {"content" : message, "thread": id, "author" : user_id })
     db.session.commit()
+
+def find_message(thread_id, query):
+    sql = "SELECT DISTINCT   M.content, U.username, M.sent_at FROM messages M, users U, threads T WHERE M.thread=:thread_id AND M.author=U.id AND content LIKE :query"
+    result = db.session.execute(sql, {"thread_id" : thread_id, "query" : "%"+query+"%"})
+    return result.fetchall()
