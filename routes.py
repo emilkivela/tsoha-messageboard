@@ -73,7 +73,7 @@ def directs():
 		messages.direct_message(user_id, to, message)
 		return redirect(url_for("directs"))
 	else:
-		received = messages.get_directs(user_id)
+		received, sent = messages.get_directs(user_id)
 		targets = users.get_users(user_id)
-		return render_template("direct.html", users=targets, received=received)
+		return render_template("direct.html", users=targets, received=received, sent=sent)
 

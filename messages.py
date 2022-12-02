@@ -13,7 +13,11 @@ def direct_message(sender, to, content):
 def get_directs(user_id):
     sql = "SELECT D.content, U.username, D.sent_at FROM directs D, users U WHERE D.receiver=:user_id AND U.id=D.author"
     result = db.session.execute(sql, {"user_id" : user_id})
-    return result.fetchall()
+    received = result.fetchall()
+    sql = "SELECT D.content, U.username, D.sent_at FROM directs D, users U WHERE D.author=:user_id AND U.id=D.receiver"
+    result = db.session.execute(sql,{"user_id" : user_id})
+    sent = result.fetchall()
+    return received, sent
 
 def add_message(message, id, user_id):
     sql = "INSERT INTO messages (content, thread, author, sent_at) VALUES (:content, :thread, :author, NOW());"
