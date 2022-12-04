@@ -2,13 +2,18 @@ from app import app
 from flask import render_template, redirect, session, request, url_for
 import threads, messages, users, topics
 
-@app.route("/")
+@app.route("/", methods=["POST", "GET"])
 def index():
 	if not session.get("user_id"):
 		return redirect("/login")
-	list = topics.get_topics()
-
-	return render_template("index.html", topics=list)
+	if request.method == "POST":
+		topic_name = request.form["name"]
+		user_id = session.get("user_id")
+		topics.add_topic(topic_name, user_id)
+		return redirect("/")
+	else:
+		list = topics.get_topics()
+		return render_template("index.html", topics=list)
 
 @app.route("/login", methods=["POST", "GET"])
 def login():

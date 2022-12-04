@@ -8,10 +8,16 @@
 
         <h1> Message board </h1>
         {% for topic in topics %}
-        <a href="/topic/{{topic[3]}}">{{topic[0]}} </a>
+        <a href="/topic/{{topic[1]}}">{{topic[0]}} ({{topic[2]}} ketjua) </a>
         <hr>
         {% endfor %}
-
+        <h2>Luo uusi aihealue: </h2>
+        <form method="POST">
+            Alueen nimi: <br>
+            <textarea name="name" rows="1" cols="40"></textarea>
+            <br>
+            <input type="submit" value="Lähetä">
+        </form> <br>
         <br>
         <a href="/directs"> Yksityisviestit</a><br>
         <a href="/login"> Kirjaudu sisään</a> <br>
