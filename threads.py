@@ -13,4 +13,17 @@ def get_name(id):
 def add_thread(name, creator, topic):
     sql = "INSERT INTO threads (name, creator, topic, created_at) values (:name, :creator, :topic, NOW())"
     db.session.execute(sql, {"name": name, "creator" : creator, "topic" : topic})
-    db.session.commit() 
+    db.session.commit()
+
+def check_permission(user_id, thread_id):
+    sql = "SELECT T.creator FROM threads T, users U WHERE T.creator=U.id AND T.id=:thread_id"
+    result = db.session.execute(sql, {"thread_id" : thread_id})
+    if user_id == result.fetchone()[0]:
+        return True
+    else:
+        return False
+
+def delete_thread(thread_id):
+    sql = "DELETE FROM threads WHERE id=:thread_id"
+    db.session.execute(sql, {"thread_id" : thread_id})
+    db.session.commit()

@@ -4,8 +4,8 @@
         <h1> {{name[0]}} </h1>
         <br>
         {% for thread in threads %}
-        <a href="/thread/{{thread[2]}}">{{thread[0]}} ({{thread[3]}} messages)<i> by {{thread[1]}}</i></a>
-        <hr>
+        <a href="/thread/{{thread[2]}}">{{thread[0]}} ({{thread[3]}} messages)<i> by {{thread[1]}}</i></a> <br>
+        <a href="/delete/thread{{thread[2]}}"> Poista ketju</a><br>
         {% endfor %} <br>
         <h2>Tee uusi ketju: </h2>
         <form method="POST">

@@ -55,6 +55,15 @@ def thread(id):
 		list = messages.get_list(id)
 		return render_template("thread.html", messages=list, name=name)
 
+@app.route("/delete/thread<int:id>")
+def delete_thread(id):
+	user_id = session.get("user_id")
+	if threads.check_permission(user_id, id):
+		threads.delete_thread(id)
+		return redirect("/")
+	else:
+		return render_template("error.html", error="Sinulle ei ole käyttöoikeutta tähän toimintoon")
+
 @app.route("/topic/<int:id>", methods=["POST", "GET"])
 def topic(id):
 	if not session.get("user_id"):
