@@ -64,6 +64,15 @@ def delete_thread(id):
 	else:
 		return render_template("error.html", error="Sinulle ei ole käyttöoikeutta tähän toimintoon")
 
+@app.route("/delete/message<int:id>")
+def delete_message(id):
+	user_id = session.get("user_id")
+	if messages.check_permission(user_id, id):
+		messages.delete_message(id)
+		return redirect("/")
+	else:
+		return render_template("error.html", error="Sinulle ei ole käyttöoikeutta tähän toimintoon")
+
 @app.route("/topic/<int:id>", methods=["POST", "GET"])
 def topic(id):
 	if not session.get("user_id"):

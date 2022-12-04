@@ -1,7 +1,7 @@
 from db import db
 
 def get_list(thread_id):
-    sql = "SELECT M.content, U.username, M.sent_at FROM messages M, users U WHERE M.author=U.id AND M.thread=:thread_id ORDER BY M.id"
+    sql = "SELECT M.content, U.username, M.sent_at, M.id FROM messages M, users U WHERE M.author=U.id AND M.thread=:thread_id ORDER BY M.id"
     result = db.session.execute(sql, {"thread_id" : thread_id})
     return result.fetchall()
 
@@ -28,3 +28,16 @@ def find_message(thread_id, query):
     sql = "SELECT DISTINCT   M.content, U.username, M.sent_at FROM messages M, users U, threads T WHERE M.thread=:thread_id AND M.author=U.id AND content LIKE :query"
     result = db.session.execute(sql, {"thread_id" : thread_id, "query" : "%"+query+"%"})
     return result.fetchall()
+
+def check_permission(user_id, message_id):
+    sql = "SELECT M.author FROM messages M, users U WHERE M.author=U.id AND M.id=:message_id"
+    result = db.session.execute(sql, {"message_id" : message_id})
+    if user_id == result.fetchone()[0]:
+        return True
+    else:
+        return False
+
+def delete_message(message_id):
+    sql = "DELETE FROM messages WHERE id=:message_id"
+    db.session.execute(sql, {"message_id" : message_id})
+    db.session.commit()

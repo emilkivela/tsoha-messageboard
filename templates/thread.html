@@ -6,8 +6,9 @@
     <body>
         <h1> {{name[0]}} </h1>
         {% for message in messages %}
-        {{message[0]}} <i> by {{message[1]}} at {{message[2].strftime("%H:%M %d.%m.%Y")}}</i>
-        <hr>
+        {{message[0]}} <i> by {{message[1]}} at {{message[2].strftime("%H:%M %d.%m.%Y")}}</i><br>
+        <a href="/delete/message{{message[3]}}">Poista viesti</a><br>
+        <br>
         {% endfor %}
 
         Lähetä uusi viesti
