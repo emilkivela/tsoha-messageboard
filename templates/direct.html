@@ -1,25 +1,32 @@
 <!DOCTYPE html>
-<title> Yksityisviestit </title>
-<h1> Yksityisviestit: </h1>
-<h2>Vastaanotetut:</h2>
-{% for message in received %}
-    {{message[0]}} <i> from {{message[1]}} at {{message[2].strftime("%H:%M %d.%m.%Y")}}</i><br>
-{% endfor %}
-<br>
-<h2>Lähetetyt:</h2>
-{% for message in sent %}
-    {{message[0]}} <i> to {{message [1]}} at {{message[2].strftime("%H:%M %d.%m.%Y")}} </i><br>
-{% endfor %}
-<br>
-Lähetä yksityisviesti:<br>
-<form action="/directs" method="POST">
-    Vastaanottaja:
-    <select name="receiver">
-    {% for user in users%}
-        <option value="{{user[1]}}" selected> {{user[0]}}</option>
-    {% endfor %}
-    </select><br>
-    <textarea name="content" cols="40" rows="5"></textarea>
+<html>
+    <head>
+        <title> Yksityisviestit </title>
+    </head>
+    <body>
+        <h1> Yksityisviestit: </h1>
+        <h2>Vastaanotetut:</h2>
+        {% for message in received %}
+            {{message[0]}} <i> from {{message[1]}} at {{message[2].strftime("%H:%M %d.%m.%Y")}}</i><br>
+        {% endfor %}
+        <br>
+        <h2>Lähetetyt:</h2>
+        {% for message in sent %}
+            {{message[0]}} <i> to {{message [1]}} at {{message[2].strftime("%H:%M %d.%m.%Y")}} </i><br>
+        {% endfor %}
+        <br>
+        Lähetä yksityisviesti:<br>
+        <form action="/directs" method="POST">
+            Vastaanottaja:
+            <select name="receiver">
+            {% for user in users%}
+                <option value="{{user[1]}}" selected> {{user[0]}}</option>
+            {% endfor %}
+            </select><br>
+            <textarea name="content" cols="40" rows="5"></textarea>
 
-    <input type="submit" name="Send">
-</form>
+            <input type="submit" name="Send">
+        </form>
+    </body>
+</html>
+

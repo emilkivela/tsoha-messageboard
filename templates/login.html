@@ -1,14 +1,20 @@
 <!DOCTYPE html>
-<h1> Kirjaudu sisään </h1> <br>
-<form action="/login" method="POST">
-    <b> Käyttäjänimi</b> <br>
-    <input type="text" name="username"> <br>
-    <br>
-    <b> Salasana: </b> <br>
-    <input type="password" name="password"> <br>
-
-    <input type="submit" value="Kirjaudu sisään">
-</form>
-<br>
-Eikö sinulla ole vielä käyttäjää?
-<a href="/signin"> Luo tunnus </a>
+<html>
+    <head>
+        <title>Kirjautuminen</title>
+    </head>
+    <body>
+        <h1> Kirjaudu sisään </h1> <br>
+        <form action="/login" method="POST">
+            <b> Käyttäjänimi</b> <br>
+            <input type="text" name="username"> <br>
+            <br>
+            <b> Salasana: </b> <br>
+            <input type="password" name="password"> <br>
+            <input type="submit" value="Kirjaudu sisään">
+        </form>
+        <br>
+        Eikö sinulla ole vielä käyttäjää?
+        <a href="/signin"> Luo tunnus </a>
+    </body>  
+</html>

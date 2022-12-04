@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-{% for message in messages %}
-<br>
-{{message[0]}} by {{message[1]}} at {{message[2].strftime("%H:%M %d.%m.%Y")}}
-{% endfor %}
+<html>
+    <body>
+        {% for message in messages %}
+        <br>
+        {{message[0]}} by {{message[1]}} at {{message[2].strftime("%H:%M %d.%m.%Y")}}
+        {% endfor %}
+    </body>
+</html>

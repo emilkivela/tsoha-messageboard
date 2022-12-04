@@ -1,15 +1,20 @@
 <!DOCTYPE html>
-<title> Message board </title>
-<h1> Message board </h1>
-{% for topic in topics %}
-<a href="/topic/{{topic[3]}}">{{topic[0]}} <i> by {{topic[1]}}</i></a>
-<hr>
-{% endfor %}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title> Message board </title>
+    </head>
+    <body>
 
-<br>
-<a href="/directs"> Yksityisviestit</a><br>
-<br>
-<a href="/login"> Kirjaudu sisään</a> <br>
-<br>
-<a href="/logout"> Kirjaudu ulos </a><br>
-<br>
+        <h1> Message board </h1>
+        {% for topic in topics %}
+        <a href="/topic/{{topic[3]}}">{{topic[0]}} </a>
+        <hr>
+        {% endfor %}
+
+        <br>
+        <a href="/directs"> Yksityisviestit</a><br>
+        <a href="/login"> Kirjaudu sisään</a> <br>
+        <a href="/logout"> Kirjaudu ulos </a><br>
+    </body>
+</html>
