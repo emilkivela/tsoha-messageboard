@@ -5,11 +5,11 @@
 - Käyttäjä voi luoda uuden ketjun
 - Käyttäjä voi lukea ketjuja ja lähettää niihin uuden viestin
 - Käyttäjä voi lähettää toisille käyttäjille yksityisviestejä sekä lukea itse saamiaan viestejä
+- Käyttäjä voi etsiä ketjuista viestejä hakusanalla
+- Käyttäjä voi poistaa luomiaan ketjuja ja ketjuihin lähettämiään viestejä
 
 ## TO-DO:
-- Viestien hakutoiminnot
-- Viestien ja ketjujen poisto
-- Ketjujen aihealueet
 - Admin-toiminnot
 - Ulkoasu
 - Koodin rakenteen parantaminen
+- (Poistomahdollisuuden näyttäminen vain niille joilla on siihen oikeus?)
