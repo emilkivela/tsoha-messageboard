@@ -10,7 +10,7 @@ CREATE TABLE topics(
     name TEXT,
     creator INTEGER REFERENCES users ON DELETE CASCADE,
     created_at TIMESTAMP
-)
+);
 
 CREATE TABLE threads(
     id SERIAL PRIMARY KEY,
