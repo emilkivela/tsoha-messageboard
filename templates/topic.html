@@ -13,6 +13,7 @@
             <textarea name="name" rows="1" cols="40"></textarea>
             <br>
             <input type="submit" value="Lähetä">
+            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
         </form> <br>
         <a href="/directs"> Yksityisviestit</a><br>
         <br>
