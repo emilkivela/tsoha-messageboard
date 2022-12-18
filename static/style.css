@@ -1,0 +1,38 @@
+@font-face {
+    font-family: 'cordata';
+    src: url(/static/Web437_Cordata_PPC-21.woff) format('woff');
+}
+
+body {
+    font-family: cordata;
+    margin: auto;
+    max-width: 45em;
+    background: rgb(242, 226, 205);
+}
+
+nav {
+    padding: 1em 1em;    
+    border-radius: .5em;
+    position: absolute;
+    left: 1500px;
+    top: 25px;
+    background: rgb(203, 201, 201);
+}
+
+.header {
+    padding: 1.5em 1em;
+    border-radius: .5em ;
+    background: rgb(235, 175, 110)
+}
+
+.content {
+    padding: 1em 1em;
+    border-radius: .5em ;
+    background: rgb(203, 201, 201);
+}
+
+.single {
+    padding: 1em .5em;
+    border-radius: .5em;
+    background: rgb(242, 226, 205);
+}

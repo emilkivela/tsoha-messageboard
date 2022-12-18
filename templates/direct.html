@@ -1,32 +1,51 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}"/>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title> Yksityisviestit </title>
     </head>
     <body>
-        <h1> Yksityisviestit: </h1>
-        <h2>Vastaanotetut:</h2>
-        {% for message in received %}
-            {{message[0]}} <i> from {{message[1]}} at {{message[2].strftime("%H:%M %d.%m.%Y")}}</i><br>
-        {% endfor %}
-        <br>
-        <h2>Lähetetyt:</h2>
-        {% for message in sent %}
-            {{message[0]}} <i> to {{message [1]}} at {{message[2].strftime("%H:%M %d.%m.%Y")}} </i><br>
-        {% endfor %}
-        <br>
-        Lähetä yksityisviesti:<br>
-        <form action="/directs" method="POST">
-            Vastaanottaja:
-            <select name="receiver">
-            {% for user in users%}
-                <option value="{{user[1]}}" selected> {{user[0]}}</option>
+        <div class="header">
+            <h1> Yksityisviestit: </h1>
+        </div>
+        <div class="content">
+            <h2>Vastaanotetut:</h2>
+            {% for message in received %}
+            <div class="single">
+                {{message[0]}} <i> from {{message[1]}} at {{message[2].strftime("%H:%M %d.%m.%Y")}}</i><br>
+            </div>
+            <hr>
             {% endfor %}
-            </select><br>
-            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-            <textarea name="content" cols="40" rows="5"></textarea>
-            <input type="submit" name="Send">
-        </form>
+            <br>
+            <h2>Lähetetyt:</h2>
+            {% for message in sent %}
+            <div class="single">
+                {{message[0]}} <i> to {{message [1]}} at {{message[2].strftime("%H:%M %d.%m.%Y")}} </i><br>
+            </div>
+            <hr>
+            {% endfor %}
+            <br>
+            Lähetä yksityisviesti:<br>
+            <form action="/directs" method="POST">
+                Vastaanottaja:
+                <select name="receiver">
+                {% for user in users%}
+                    <option value="{{user[1]}}" selected> {{user[0]}}</option>
+                {% endfor %}
+                </select><br>
+                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                <textarea name="content" cols="40" rows="5"></textarea>
+                <input type="submit" name="Send">
+            </form>
+        </div>
+        <nav>
+            <a href="/"> Etusivu </a><br>
+            <a href="/directs"> Yksityisviestit</a><br>
+            <a href="/login"> Kirjaudu sisään</a> <br>
+            <a href="/logout"> Kirjaudu ulos </a><br>
+        </nav>
     </body>
 </html>
 

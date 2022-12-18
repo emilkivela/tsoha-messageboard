@@ -1,14 +1,27 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}"/>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
     <body>
-        <h1> Luo käyttäjä </h1> <br>
-        <form action="/signin" method="POST">
-            <b> Käyttäjänimi</b> <br>
-            <input type="text" name="username"> <br>
-            <b> Salasana: </b> <br>
-            <input type="password" name="password"> <br>
-            <input type="submit" value="Luo käyttäjä">
-            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-        </form>
+        <div class="header">
+            <h1> Luo käyttäjä </h1> <br>
+        </div>
+        <div class="content">
+            <form action="/signin" method="POST">
+                <b> Käyttäjänimi</b> <br>
+                <input type="text" name="username"> <br>
+                <b> Salasana: </b> <br>
+                <input type="password" name="password"> <br>
+                <input type="submit" value="Luo käyttäjä">
+                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+            </form>
+        </div>
+        <nav>
+            Onko sinulla jo käyttäjä?
+            <a href="/login"> Kirjaudu sisään </a>
+        </nav>
     </body>
 </html>

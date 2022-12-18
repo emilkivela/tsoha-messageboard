@@ -1,9 +1,25 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}"/>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
     <body>
-        {% for message in messages %}
-        <br>
-        {{message[0]}} by {{message[1]}} at {{message[2].strftime("%H:%M %d.%m.%Y")}}
-        {% endfor %}
+        <div class="content">
+            {% for message in messages %}
+            <br>
+            <div class="single">
+                {{message[0]}} by {{message[1]}} at {{message[2].strftime("%H:%M %d.%m.%Y")}}
+            </div>
+            <hr>
+            {% endfor %}
+        </div>
+        <nav>
+            <a href="/"> Etusivu </a><br>
+            <a href="/directs"> Yksityisviestit</a><br>
+            <a href="/login"> Kirjaudu sisään</a> <br>
+            <a href="/logout"> Kirjaudu ulos </a><br>
+        </nav>
     </body>
 </html>

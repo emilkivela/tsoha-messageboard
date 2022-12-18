@@ -1,25 +1,39 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}"/>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title> {{name[0]}} </title>
     </head>
     <body>
-        <h1> {{name[0]}} </h1>
-        {% for message in messages %}
-        {{message[0]}} <i> by {{message[1]}} at {{message[2].strftime("%H:%M %d.%m.%Y")}}</i><br>
-        <a href="/delete/message{{message[3]}}">Poista viesti</a><br>
-        <br>
-        {% endfor %}
-
-        Lähetä uusi viesti
-        <form method="POST">
-            <input type="text" name="message">
-            <input type="submit" value="Lähetä viesti">
-            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-        </form> <br>
-        <form action="/search{{name[1]}}" method="GET">
-            Etsi viesteistä hakusanalla: <input type="text" name="query"> <br>
-            <input type="submit" value="Hae">
-        </form>
+        <div class="header">
+            <h1> {{name[0]}} </h1>
+        </div>
+        <div class="content">
+            {% for message in messages %}
+            <div class="single">
+                {{message[0]}} <i> by {{message[1]}} at {{message[2].strftime("%H:%M %d.%m.%Y")}}</i><br>
+                <a href="/delete/message{{message[3]}}">Poista viesti</a><br>
+            </div>
+            <hr>
+            {% endfor %}
+            Lähetä uusi viesti
+            <form method="POST">
+                <input type="text" name="message">
+                <input type="submit" value="Lähetä viesti">
+                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+            </form> <br>
+            <form action="/search{{name[1]}}" method="GET">
+                Etsi viesteistä hakusanalla: <input type="text" name="query"> <br>
+                <input type="submit" value="Hae">
+            </form>
+        </div>
+        <nav>
+            <a href="/"> Etusivu </a><br>
+            <a href="/directs"> Yksityisviestit</a><br>
+            <a href="/login"> Kirjaudu sisään</a> <br>
+            <a href="/logout"> Kirjaudu ulos </a><br>
+        </nav>
     </body>
 </html>

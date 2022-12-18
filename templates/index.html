@@ -1,27 +1,37 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}"/>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title> Message board </title>
     </head>
     <body>
-
-        <h1> Message board </h1>
-        {% for topic in topics %}
-        <a href="/topic/{{topic[1]}}">{{topic[0]}} ({{topic[2]}} ketjua) </a>
-        <hr>
-        {% endfor %}
-        <h2>Luo uusi aihealue: </h2>
-        <form method="POST">
-            Alueen nimi: <br>
-            <textarea name="name" rows="1" cols="40"></textarea>
+        <div class="header">
+            <h1> Message board </h1>
+        </div>
+        <div class="content">
+            {% for topic in topics %}
+            <div class="single">
+                <a href="/topic/{{topic[1]}}">{{topic[0]}} ({{topic[2]}} ketjua) </a>
+            </div>
+            <hr>
+            {% endfor %}
+            <h2>Luo uusi aihealue: </h2>
+            <form method="POST">
+                Alueen nimi: <br>
+                <textarea name="name" rows="1" cols="40"></textarea>
+                <br>
+                <input type="submit" value="Lähetä">
+                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+            </form> <br>
             <br>
-            <input type="submit" value="Lähetä">
-            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-        </form> <br>
-        <br>
-        <a href="/directs"> Yksityisviestit</a><br>
-        <a href="/login"> Kirjaudu sisään</a> <br>
-        <a href="/logout"> Kirjaudu ulos </a><br>
+        </div>
+        
+        <nav>
+            <a href="/directs"> Yksityisviestit</a><br>
+            <a href="/login"> Kirjaudu sisään</a> <br>
+            <a href="/logout"> Kirjaudu ulos </a><br>
+        </nav>
     </body>
 </html>

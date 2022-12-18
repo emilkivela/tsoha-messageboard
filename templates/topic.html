@@ -1,24 +1,38 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}"/>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
     <body>
-        <h1> {{name[0]}} </h1>
+        <div class="header">
+            <h1> {{name[0]}} </h1>
+        </div>
         <br>
-        {% for thread in threads %}
-        <a href="/thread/{{thread[2]}}">{{thread[0]}} ({{thread[3]}} messages)<i> by {{thread[1]}}</i></a> <br>
-        <a href="/delete/thread{{thread[2]}}"> Poista ketju</a><br>
-        {% endfor %} <br>
-        <h2>Tee uusi ketju: </h2>
-        <form method="POST">
-            ketjun nimi: <br>
-            <textarea name="name" rows="1" cols="40"></textarea>
-            <br>
-            <input type="submit" value="Lähetä">
-            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-        </form> <br>
-        <a href="/directs"> Yksityisviestit</a><br>
-        <br>
-        <a href="/login"> Kirjaudu sisään</a> <br>
-        <br>
-        <a href="/logout"> Kirjaudu ulos </a><br>
+        <div class="content">
+            {% for thread in threads %}
+            <div class="single">
+                <a href="/thread/{{thread[2]}}">{{thread[0]}} ({{thread[3]}} messages)<i> by {{thread[1]}}</i></a> <br>
+                <a href="/delete/thread{{thread[2]}}"> Poista ketju</a><br>
+            </div>
+            <hr>
+            {% endfor %} <br>
+            <h2>Tee uusi ketju: </h2>
+            <form method="POST">
+                ketjun nimi: <br>
+                <textarea name="name" rows="1" cols="40"></textarea>
+                <br>
+                <input type="submit" value="Lähetä">
+                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+            </form> <br>
+        </div>
+        <nav>
+            <a href="/"> Etusivu </a><br>
+            <a href="/directs"> Yksityisviestit</a><br>
+            <a href="/login"> Kirjaudu sisään</a> <br>
+            <a href="/logout"> Kirjaudu ulos </a><br>
+        </nav>
+        
         </body>
 </html>
