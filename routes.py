@@ -7,7 +7,7 @@ def index():
 	if not session.get("user_id"):
 		return redirect("/login")
 	if request.method == "POST":
-		if session["csrf_token"] != request.form("csrf_token"):
+		if session["csrf_token"] != request.form["csrf_token"]:
 			render_template("error.html", error="Invalid CSRF token")
 		topic_name = request.form["name"]
 		user_id = session.get("user_id")
@@ -53,7 +53,7 @@ def thread(id):
 	if not session.get("user_id"):
 		return redirect("/login")
 	if request.method =="POST":
-		if session["csrf_token"] != request.form("csrf_token"):
+		if session["csrf_token"] != request.form["csrf_token"]:
 			render_template("error.html", error="Invalid CSRF token")
 		user_id = session.get("user_id")
 		message = request.form["message"]
@@ -87,7 +87,7 @@ def topic(id):
 	if not session.get("user_id"):
 		return redirect("/login")
 	if request.method == "POST":
-		if session["csrf_token"] != request.form("csrf_token"):
+		if session["csrf_token"] != request.form["csrf_token"]:
 			render_template("error.html", error="Invalid CSRF token")
 		creator = session.get("user_id")
 		name = request.form["name"]
@@ -104,7 +104,7 @@ def directs():
 		return redirect("/login")
 	user_id = session.get("user_id")
 	if request.method == "POST":
-		if session["csrf_token"] != request.form("csrf_token"):
+		if session["csrf_token"] != request.form["csrf_token"]:
 			render_template("error.html", error="Invalid CSRF token")
 		to = request.form["receiver"]
 		message = request.form["content"]
