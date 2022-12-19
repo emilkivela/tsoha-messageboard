@@ -8,8 +8,3 @@
 - Käyttäjä voi etsiä ketjuista viestejä hakusanalla
 - Käyttäjä voi poistaa luomiaan ketjuja ja ketjuihin lähettämiään viestejä
 
-## TO-DO:
-- Admin-toiminnot
-- Ulkoasu
-- Koodin rakenteen parantaminen
-- (Poistomahdollisuuden näyttäminen vain niille joilla on siihen oikeus?)
